@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/modular-state",
         "index": "apps/modular-state/src/index.html",
         "browser": "apps/modular-state/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/modular-state/tsconfig.app.json",
         "assets": [
           {

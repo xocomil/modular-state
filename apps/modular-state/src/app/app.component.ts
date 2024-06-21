@@ -1,14 +1,18 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { InputDirective } from '@modular-state/shared-ui';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [InputDirective],
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <div class="container">
+      <label modStateInput>
+        Test Input
+        <input type="text" placeholder="Enter something..." />
+      </label>
+    </div>
+  `,
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  title = 'modular-state';
-}
+export class AppComponent {}

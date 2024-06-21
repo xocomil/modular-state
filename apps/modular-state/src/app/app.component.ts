@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
-import { InputDirective } from '@modular-state/shared-ui';
+import { VehicleInfoComponent } from '@modular-state/vehicle.info';
 
 @Component({
   standalone: true,
-  imports: [InputDirective],
+  imports: [VehicleInfoComponent],
   selector: 'app-root',
   template: `
     <div class="container">
-      <label modStateInput>
-        Test Input
-        <input type="text" placeholder="Enter something..." />
-      </label>
+      <mod-state-vehicle-info />
     </div>
   `,
   styleUrl: './app.component.css',

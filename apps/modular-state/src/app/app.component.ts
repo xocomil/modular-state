@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { VehicleInfoComponent } from '@modular-state/vehicle.info';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [VehicleInfoComponent],
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <div class="container">
+      <mod-state-vehicle-info />
+    </div>
+  `,
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  title = 'modular-state';
-}
+export class AppComponent {}

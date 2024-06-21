@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@modular-state/shared-ui": ["libs/shared-ui/src/index.ts"],
+      "@modular-state/vehicle.info": [
+        "libs/components/vehicle-info/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

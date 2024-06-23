@@ -4,12 +4,22 @@
 
 .input {
   input {
-    @apply grow;
-  }
+    &[type='text'] {
+      @apply grow;
+    }
 
-  input:focus {
-    outline: 1px solid theme('colors.neutral-content/.33');
-    outline-offset: 1px;
-    border-radius: 4px;
+    &:focus {
+      outline: 1px solid theme('colors.neutral-content/.33');
+      outline-offset: 1px;
+      border-radius: 4px;
+    }
+  }
+}
+
+.label {
+  input {
+    &[type='checkbox'] {
+      @apply checkbox;
+    }
   }
 }

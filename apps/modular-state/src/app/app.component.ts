@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { VehicleInfoComponent } from '@modular-state/vehicle.info';
 
 @Component({
   standalone: true,
-  imports: [VehicleInfoComponent],
+  imports: [VehicleInfoComponent, FormsModule],
   selector: 'app-root',
   template: `
     <div class="container">
-      <mod-state-vehicle-info />
+      <form>
+        <mod-state-vehicle-info />
+      </form>
     </div>
   `,
   styleUrl: './app.component.css',

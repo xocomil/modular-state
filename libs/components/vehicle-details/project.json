@@ -1,0 +1,20 @@
+{
+  "name": "vehicle-details",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/components/vehicle-details/src",
+  "prefix": "mod-state",
+  "projectType": "library",
+  "tags": ["lib", "screen"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/components/vehicle-details/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

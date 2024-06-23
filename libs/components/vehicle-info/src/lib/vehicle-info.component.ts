@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  viewChild,
+} from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { InputDirective } from '@modular-state/shared-ui';
 import { VehicleInfoStore } from './state/vehicle-info.store';
 
@@ -9,46 +15,79 @@ import { VehicleInfoStore } from './state/vehicle-info.store';
   standalone: true,
   imports: [CommonModule, InputDirective, FormsModule],
   template: `
-    <label modStateInput>
-      VIN
-      <input type="text" placeholder="VIN" [ngModel]="store.vin()" />
-    </label>
-    <label modStateInput>
-      Year
-      <input type="text" placeholder="Vehicle Year" [ngModel]="store.year()" />
-    </label>
-    <label modStateInput>
-      Make
-      <input type="text" placeholder="Vehicle Make" [ngModel]="store.make()" />
-    </label>
-    <label modStateInput>
-      Model
-      <input
-        type="text"
-        placeholder="Vehicle Model"
-        [ngModel]="store.model()"
-      />
-    </label>
-    <label modStateInput>
-      Trim
-      <input type="text" placeholder="Trim Level" [ngModel]="store.trim()" />
-    </label>
-    <label modStateInput>
-      Stock Number
-      <input
-        type="text"
-        placeholder="Stock Number"
-        [ngModel]="store.stockNumber()"
-      />
-    </label>
+    <form
+      class="flex flex-col gap-4"
+      #form="ngForm"
+      [ngFormOptions]="{ updateOn: 'blur' }"
+    >
+      <label modStateInput>
+        VIN
+        <input
+          [ngModel]="store.vin()"
+          [ngModelOptions]="{ updateOn: 'blur' }"
+          type="text"
+          placeholder="VIN"
+          name="vin"
+        />
+      </label>
+      <label modStateInput>
+        Year
+        <input
+          [ngModel]="store.year()"
+          type="text"
+          placeholder="Vehicle Year"
+          name="year"
+        />
+      </label>
+      <label modStateInput>
+        Make
+        <input
+          [ngModel]="store.make()"
+          type="text"
+          placeholder="Vehicle Make"
+          name="make"
+        />
+      </label>
+      <label modStateInput>
+        Model
+        <input
+          [ngModel]="store.model()"
+          type="text"
+          placeholder="Vehicle Model"
+          name="model"
+        />
+      </label>
+      <label modStateInput>
+        Trim
+        <input
+          [ngModel]="store.trim()"
+          type="text"
+          placeholder="Trim Level"
+          name="trim"
+        />
+      </label>
+      <label modStateInput>
+        Stock Number
+        <input
+          [ngModel]="store.stockNumber()"
+          type="text"
+          placeholder="Stock Number"
+          name="stockNumber"
+        />
+      </label>
+    </form>
   `,
   styleUrl: './vehicle-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    class: 'flex flex-col gap-4',
-  },
   providers: [VehicleInfoStore],
 })
 export class VehicleInfoComponent {
   protected readonly store = inject(VehicleInfoStore);
+  protected readonly form = viewChild.required<NgForm>('form');
+
+  constructor() {
+    afterNextRender(() => {
+      this.store.update(this.form().valueChanges);
+    });
+  }
 }

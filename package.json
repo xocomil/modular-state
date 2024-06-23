@@ -60,6 +60,8 @@
     "nx": "19.3.1",
     "postcss": "^8.4.38",
     "prettier": "^3.3.2",
+    "prettier-plugin-organize-attributes": "^1.0.0",
+    "prettier-plugin-organize-imports": "^3.2.4",
     "stylelint": "^16.6.1",
     "stylelint-config-standard": "^36.0.1",
     "stylelint-config-tailwindcss": "^0.0.7",

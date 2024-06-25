@@ -21,7 +21,7 @@ import { VehicleInfoStore } from './state/vehicle-info.store';
       [ngFormOptions]="{ updateOn: 'blur' }"
     >
       <label modStateInput>
-        VIN
+        VIN (Last 6: {{ store.vinLast6() }})
         <input
           [ngModel]="store.vin()"
           [ngModelOptions]="{ updateOn: 'blur' }"

@@ -1,4 +1,8 @@
-import { computed, inject } from '@angular/core';
+import { computed, inject, InjectionToken, Signal } from '@angular/core';
+import {
+  RxMethod,
+  SignalStoreProps,
+} from '@modular-state/signal.store.helpers.types';
 import {
   patchState,
   signalStoreFeature,
@@ -8,7 +12,7 @@ import {
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tap } from 'rxjs';
-import { VEHICLE_INFO_STATE, Vehicle } from './vehicle.model';
+import { Vehicle, VEHICLE_INFO_STATE } from './vehicle.model';
 
 export function withVehicleInfo() {
   return signalStoreFeature(
@@ -32,3 +36,12 @@ export function withVehicleInfo() {
     })),
   );
 }
+
+export type VehicleInfoStore = SignalStoreProps<Vehicle> & {
+  update: RxMethod<Partial<Vehicle> | null>;
+  vinLast6: Signal<string>;
+};
+
+export const VehicleInfoToken = new InjectionToken<VehicleInfoStore>(
+  'VehicleInfoToken',
+);

@@ -1,4 +1,4 @@
-import { inject, InjectionToken } from '@angular/core';
+import { inject, InjectionToken, Signal } from '@angular/core';
 import {
   RxMethod,
   SignalStoreProps,
@@ -6,6 +6,7 @@ import {
 import {
   patchState,
   signalStoreFeature,
+  type,
   withMethods,
   withState,
 } from '@ngrx/signals';
@@ -15,6 +16,7 @@ import { VEHICLE_DETAILS_STATE, VehicleDetails } from './vehicle-details.model';
 
 export function withVehicleDetails() {
   return signalStoreFeature(
+    { state: type<{ vin: string }>() },
     withState(() => inject(VEHICLE_DETAILS_STATE)),
     withMethods((store) => ({
       update: rxMethod<Partial<VehicleDetails> | null>((update$) =>
@@ -33,6 +35,7 @@ export function withVehicleDetails() {
 }
 
 export type VehicleDetailsStore = SignalStoreProps<VehicleDetails> & {
+  vin: Signal<string>;
   update: RxMethod<Partial<VehicleDetails> | null>;
 };
 

@@ -1,14 +1,36 @@
-import { Component, Provider } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { Component, computed, inject, Provider } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   VehicleDetailsComponent,
   VehicleDetailsToken,
   withVehicleDetails,
 } from '@modular-state/vehicle.details';
-import { VehicleInfoComponent } from '@modular-state/vehicle.info';
-import { signalStore } from '@ngrx/signals';
+import {
+  VehicleInfoComponent,
+  VehicleInfoToken,
+  withVehicleInfo,
+} from '@modular-state/vehicle.info';
+import {
+  getState,
+  signalStore,
+  signalStoreFeature,
+  withComputed,
+} from '@ngrx/signals';
 
-const VehicleStore = signalStore(withVehicleDetails());
+function withFullVehicle() {
+  return signalStoreFeature(
+    withVehicleInfo(),
+    withVehicleDetails(),
+    withComputed((store) => ({
+      vehicleDescription: computed(
+        () => `${store.year()} ${store.make()} ${store.model()}`,
+      ),
+    })),
+  );
+}
+
+const VehicleStore = signalStore(withFullVehicle());
 
 function provideAppState(): Provider[] {
   return [
@@ -18,22 +40,39 @@ function provideAppState(): Provider[] {
       useExisting: VehicleStore,
       deps: [VehicleStore],
     },
+    {
+      provide: VehicleInfoToken,
+      useExisting: VehicleStore,
+      deps: [VehicleStore],
+    },
   ];
 }
 
 @Component({
   standalone: true,
-  imports: [VehicleInfoComponent, FormsModule, VehicleDetailsComponent],
+  imports: [
+    FormsModule,
+    JsonPipe,
+    VehicleDetailsComponent,
+    VehicleInfoComponent,
+  ],
   selector: 'app-root',
   template: `
+    <h1>{{ store.vehicleDescription() }}</h1>
     <div class="container p-2">
       <form>
-        <mod-state-vehicle-info />
-        <mod-state-vehicle-details />
+        @defer {
+          <mod-state-vehicle-info />
+          <mod-state-vehicle-details />
+        }
       </form>
+      <pre>{{ allVehicleProps() | json }}</pre>
     </div>
   `,
   styleUrl: './app.component.css',
   providers: [provideAppState()],
 })
-export class AppComponent {}
+export class AppComponent {
+  protected readonly store = inject(VehicleStore);
+  protected readonly allVehicleProps = computed(() => getState(this.store));
+}

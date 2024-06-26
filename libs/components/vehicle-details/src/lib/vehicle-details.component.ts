@@ -83,6 +83,8 @@ import { VehicleDetailsToken } from './state/vehicle-details.store.feature';
           name="navigation"
         />
       </label>
+      <label>Vin: </label><span>{{ store.vin() }}</span
+      ><br />
     </form>
     <pre>{{ log() | json }}</pre> `,
   styleUrl: './vehicle-details.component.css',

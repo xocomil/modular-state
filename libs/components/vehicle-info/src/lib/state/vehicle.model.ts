@@ -1,11 +1,11 @@
 import { InjectionToken } from '@angular/core';
 
 export type Vehicle = {
+  vin: string;
   year: number;
   make: string;
   model: string;
   trim: string;
-  vin: string;
   stockNumber: string;
 };
 

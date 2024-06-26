@@ -1,13 +1,16 @@
-import { inject, InjectionToken, Signal } from '@angular/core';
+import { inject, InjectionToken } from '@angular/core';
+import {
+  RxMethod,
+  SignalStoreProps,
+} from '@modular-state/signal.store.helpers.types';
 import {
   patchState,
   signalStoreFeature,
-  StateSignal,
   withMethods,
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { Observable, tap, Unsubscribable } from 'rxjs';
+import { tap } from 'rxjs';
 import { VEHICLE_DETAILS_STATE, VehicleDetails } from './vehicle-details.model';
 
 export function withVehicleDetails() {
@@ -29,14 +32,7 @@ export function withVehicleDetails() {
   );
 }
 
-type RxMethod<T> = ((input: Observable<T> | Signal<T> | T) => Unsubscribable) &
-  Unsubscribable;
-
-type SignalStore<T extends object> = {
-  [key in keyof T]: Signal<T[key]>;
-} & StateSignal<T>;
-
-export type VehicleDetailsStore = SignalStore<VehicleDetails> & {
+export type VehicleDetailsStore = SignalStoreProps<VehicleDetails> & {
   update: RxMethod<Partial<VehicleDetails> | null>;
 };
 

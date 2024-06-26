@@ -16,6 +16,12 @@
     "baseUrl": ".",
     "paths": {
       "@modular-state/shared-ui": ["libs/shared-ui/src/index.ts"],
+      "@modular-state/signal.store.helpers": [
+        "libs/components/signal-store-helpers/src/index.ts"
+      ],
+      "@modular-state/signal.store.helpers.types": [
+        "libs/components/signal-store-helpers/src/lib/types/index.ts"
+      ],
       "@modular-state/vehicle.details": [
         "libs/components/vehicle-details/src/index.ts"
       ],

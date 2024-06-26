@@ -10,7 +10,7 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { CheckboxDirective, InputDirective } from '@modular-state/shared-ui';
 import { getState } from '@ngrx/signals';
-import { VehicleDetailsStore } from './state/vehicle-details.store';
+import { VehicleDetailsToken } from './state/vehicle-details.store.feature';
 
 @Component({
   selector: 'mod-state-vehicle-details',
@@ -83,14 +83,15 @@ import { VehicleDetailsStore } from './state/vehicle-details.store';
           name="navigation"
         />
       </label>
+      <label>Vin: </label><span>{{ store.vin() }}</span
+      ><br />
     </form>
     <pre>{{ log() | json }}</pre> `,
   styleUrl: './vehicle-details.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [VehicleDetailsStore],
 })
 export class VehicleDetailsComponent {
-  protected store = inject(VehicleDetailsStore);
+  protected store = inject(VehicleDetailsToken);
   protected log = computed(() => getState(this.store));
   protected form = viewChild.required<NgForm>('form');
 

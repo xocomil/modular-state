@@ -1,7 +1,6 @@
 import { InjectionToken } from '@angular/core';
 
 export type VehicleDetails = {
-  vin: string;
   color: string;
   engine: string;
   fuelType: string;
@@ -12,7 +11,6 @@ export type VehicleDetails = {
 };
 
 export const defaultState = (): VehicleDetails => ({
-  vin: '1GCUYDED7NZ123456',
   color: 'Black',
   engine: 'V8',
   fuelType: 'Gasoline',

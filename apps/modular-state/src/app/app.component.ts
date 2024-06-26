@@ -1,7 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, Provider } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { VehicleDetailsComponent } from '@modular-state/vehicle.details';
+import {
+  VehicleDetailsComponent,
+  VehicleDetailsToken,
+  withVehicleDetails,
+} from '@modular-state/vehicle.details';
 import { VehicleInfoComponent } from '@modular-state/vehicle.info';
+import { signalStore } from '@ngrx/signals';
+
+const VehicleStore = signalStore(withVehicleDetails());
+
+function provideAppState(): Provider[] {
+  return [
+    VehicleStore,
+    {
+      provide: VehicleDetailsToken,
+      useExisting: VehicleStore,
+      deps: [VehicleStore],
+    },
+  ];
+}
 
 @Component({
   standalone: true,
@@ -16,5 +34,6 @@ import { VehicleInfoComponent } from '@modular-state/vehicle.info';
     </div>
   `,
   styleUrl: './app.component.css',
+  providers: [provideAppState()],
 })
 export class AppComponent {}

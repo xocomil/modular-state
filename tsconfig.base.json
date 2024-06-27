@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@modular-state/combined": ["libs/combined/src/index.ts"],
       "@modular-state/shared-ui": ["libs/shared-ui/src/index.ts"],
       "@modular-state/signal.store.helpers": [
         "libs/components/signal-store-helpers/src/index.ts"

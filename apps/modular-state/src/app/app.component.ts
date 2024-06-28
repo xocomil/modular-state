@@ -1,6 +1,5 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, inject, Provider } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import {
   VehicleDetailsToken,
@@ -46,7 +45,7 @@ function provideAppState(): Provider[] {
 
 @Component({
   standalone: true,
-  imports: [FormsModule, JsonPipe, RouterLink, RouterOutlet],
+  imports: [JsonPipe, RouterLink, RouterOutlet],
   selector: 'app-root',
   template: `
     <div class="left-nav">
@@ -56,14 +55,14 @@ function provideAppState(): Provider[] {
       <h1 class="text-primary">{{ store.vehicleDescription() }}</h1>
     </div>
     <div class="details">
-      <pre>{{ allVehicleProps() | json }}</pre>
+      <pre class="mockup-code">{{ allVehicleProps() | json }}</pre>
     </div>
     <div class="content">
       <router-outlet></router-outlet>
     </div>
   `,
   host: {
-    class: 'p-4 max-h-full',
+    class: 'p-4 max-h-full prose w-full max-w-full',
   },
   styleUrl: './app.component.css',
   providers: [provideAppState()],

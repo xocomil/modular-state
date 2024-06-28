@@ -1,21 +1,33 @@
 :host {
   display: grid;
-  grid-template-columns: 15em 1fr;
-  grid-template-rows: 6em 1fr 10em;
-  gap: 0px 0px;
+  grid-template-columns: 10em 1fr;
+  grid-template-rows: 4em 1fr 10em;
   grid-auto-flow: row;
   grid-template-areas:
     'left-nav vehicle-description'
     'left-nav content'
     'left-nav details';
+
+  @apply gap-y-4;
 }
 
 .left-nav {
   grid-area: left-nav;
+
+  > a {
+    @apply link link-secondary;
+  }
 }
 
 .vehicle-description {
   grid-area: vehicle-description;
+  display: grid;
+  place-items: center;
+  justify-content: center;
+
+  > h1 {
+    margin-bottom: 0;
+  }
 }
 
 .details {

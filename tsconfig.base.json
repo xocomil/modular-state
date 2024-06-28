@@ -28,7 +28,8 @@
       ],
       "@modular-state/vehicle.info": [
         "libs/components/vehicle-info/src/index.ts"
-      ]
+      ],
+      "@modular-state/wizard": ["libs/wizard/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

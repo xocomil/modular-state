@@ -49,12 +49,20 @@ function provideAppState(): Provider[] {
   imports: [FormsModule, JsonPipe, RouterOutlet],
   selector: 'app-root',
   template: `
-    <h1>{{ store.vehicleDescription() }}</h1>
-    <div class="container p-2">
-      <router-outlet></router-outlet>
+    <div class="left-nav"></div>
+    <div class="vehicle-description">
+      <h1 class="text-primary">{{ store.vehicleDescription() }}</h1>
+    </div>
+    <div class="details">
       <pre>{{ allVehicleProps() | json }}</pre>
     </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   `,
+  host: {
+    class: 'p-4 max-h-full',
+  },
   styleUrl: './app.component.css',
   providers: [provideAppState()],
 })

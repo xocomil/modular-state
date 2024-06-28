@@ -1,3 +1,30 @@
-form:not(:first-child) {
-  @apply mt-2;
+:host {
+  display: grid;
+  grid-template-columns: 15em 1fr;
+  grid-template-rows: 6em 1fr 10em;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'left-nav vehicle-description'
+    'left-nav content'
+    'left-nav details';
+}
+
+.left-nav {
+  grid-area: left-nav;
+}
+
+.vehicle-description {
+  grid-area: vehicle-description;
+}
+
+.details {
+  grid-area: details;
+  overflow: auto;
+}
+
+.content {
+  grid-area: content;
+  max-height: 100%;
+  overflow: auto;
 }

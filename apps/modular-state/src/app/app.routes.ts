@@ -8,6 +8,11 @@ export const appRoutes: Route[] = [
       import('@modular-state/combined').then((m) => m.CombinedComponent),
   },
   {
+    path: 'wizard',
+    loadComponent: () =>
+      import('@modular-state/wizard').then((m) => m.WizardComponent),
+  },
+  {
     path: '*',
     redirectTo: '',
   },

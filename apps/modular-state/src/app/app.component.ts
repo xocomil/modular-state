@@ -50,6 +50,7 @@ function provideAppState(): Provider[] {
   template: `
     <div class="left-nav">
       <a routerLink="/">Home</a>
+      <a routerLink="/wizard">Wizard</a>
     </div>
     <div class="vehicle-description">
       <h1 class="text-primary">{{ store.vehicleDescription() }}</h1>
@@ -62,7 +63,7 @@ function provideAppState(): Provider[] {
     </div>
   `,
   host: {
-    class: 'p-4 max-h-full prose w-full max-w-full',
+    class: 'p-4 h-full prose w-full max-w-full',
   },
   styleUrl: './app.component.css',
   providers: [provideAppState()],

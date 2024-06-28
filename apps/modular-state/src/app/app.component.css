@@ -15,7 +15,7 @@
   grid-area: left-nav;
 
   > a {
-    @apply link link-secondary;
+    @apply block link link-secondary;
   }
 }
 
@@ -38,5 +38,6 @@
 .content {
   grid-area: content;
   max-height: 100%;
+  min-height: 100%;
   overflow: auto;
 }

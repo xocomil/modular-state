@@ -17,7 +17,7 @@ import { VehicleDetailsToken } from './state/vehicle-details.store.feature';
   standalone: true,
   imports: [CommonModule, FormsModule, InputDirective, CheckboxDirective],
   template: `<form
-      class="flex flex-col gap-2"
+      class="flex flex-col gap-4"
       #form="ngForm"
       [ngFormOptions]="{ updateOn: 'blur' }"
     >

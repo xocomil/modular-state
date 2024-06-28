@@ -1,16 +1,11 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, inject, Provider } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import {
-  VehicleDetailsComponent,
   VehicleDetailsToken,
   withVehicleDetails,
 } from '@modular-state/vehicle.details';
-import {
-  VehicleInfoComponent,
-  VehicleInfoToken,
-  withVehicleInfo,
-} from '@modular-state/vehicle.info';
+import { VehicleInfoToken, withVehicleInfo } from '@modular-state/vehicle.info';
 import {
   getState,
   signalStore,
@@ -50,25 +45,26 @@ function provideAppState(): Provider[] {
 
 @Component({
   standalone: true,
-  imports: [
-    FormsModule,
-    JsonPipe,
-    VehicleDetailsComponent,
-    VehicleInfoComponent,
-  ],
+  imports: [JsonPipe, RouterLink, RouterOutlet],
   selector: 'app-root',
   template: `
-    <h1>{{ store.vehicleDescription() }}</h1>
-    <div class="container p-2">
-      <form>
-        @defer {
-          <mod-state-vehicle-info />
-          <mod-state-vehicle-details />
-        }
-      </form>
-      <pre>{{ allVehicleProps() | json }}</pre>
+    <div class="left-nav">
+      <a routerLink="/">Home</a>
+      <a routerLink="/wizard">Wizard</a>
+    </div>
+    <div class="vehicle-description">
+      <h1 class="text-primary">{{ store.vehicleDescription() }}</h1>
+    </div>
+    <div class="details">
+      <pre class="mockup-code">{{ allVehicleProps() | json }}</pre>
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
     </div>
   `,
+  host: {
+    class: 'p-4 h-full prose w-full max-w-full',
+  },
   styleUrl: './app.component.css',
   providers: [provideAppState()],
 })

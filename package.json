@@ -44,6 +44,7 @@
     "@swc-node/register": "~1.9.2",
     "@swc/core": "~1.6.5",
     "@swc/helpers": "~0.5.11",
+    "@tailwindcss/typography": "^0.5.13",
     "@types/jest": "^29.5.12",
     "@types/node": "20.14.8",
     "@typescript-eslint/eslint-plugin": "7.13.1",

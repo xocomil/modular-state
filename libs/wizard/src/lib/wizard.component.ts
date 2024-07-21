@@ -1,17 +1,15 @@
-import { CommonModule } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { VehicleDetailsComponent } from '@modular-state/vehicle.details';
-import {
-  VehicleInfoComponent,
-  VehicleInfoToken,
-} from '@modular-state/vehicle.info';
+import { VehicleInfoComponent } from '@modular-state/vehicle.info';
+import { VehicleInfoToken } from '@modular-state/vehicle.info.state';
 import { getState } from '@ngrx/signals';
 import { WizardStore } from './state/wizard.store';
 
 @Component({
   selector: 'mod-state-wizard',
   standalone: true,
-  imports: [CommonModule, VehicleDetailsComponent, VehicleInfoComponent],
+  imports: [JsonPipe, VehicleDetailsComponent, VehicleInfoComponent],
   template: `<div>
       @switch (store.currentStep()) {
         @case ('info') {

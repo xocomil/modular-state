@@ -1,47 +1,8 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, inject, Provider } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import {
-  VehicleDetailsToken,
-  withVehicleDetails,
-} from '@modular-state/vehicle.details';
-import { VehicleInfoToken, withVehicleInfo } from '@modular-state/vehicle.info';
-import {
-  getState,
-  signalStore,
-  signalStoreFeature,
-  withComputed,
-} from '@ngrx/signals';
-
-function withFullVehicle() {
-  return signalStoreFeature(
-    withVehicleInfo(),
-    withVehicleDetails(),
-    withComputed((store) => ({
-      vehicleDescription: computed(
-        () => `${store.year()} ${store.make()} ${store.model()}`,
-      ),
-    })),
-  );
-}
-
-const VehicleStore = signalStore(withFullVehicle());
-
-function provideAppState(): Provider[] {
-  return [
-    VehicleStore,
-    {
-      provide: VehicleDetailsToken,
-      useExisting: VehicleStore,
-      deps: [VehicleStore],
-    },
-    {
-      provide: VehicleInfoToken,
-      useExisting: VehicleStore,
-      deps: [VehicleStore],
-    },
-  ];
-}
+import { getState } from '@ngrx/signals';
+import { provideAppState, VehicleStore } from './state/store';
 
 @Component({
   standalone: true,

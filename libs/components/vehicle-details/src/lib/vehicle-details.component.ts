@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import {
   afterNextRender,
   ChangeDetectionStrategy,
@@ -15,7 +15,7 @@ import { VehicleDetailsToken } from './state/vehicle-details.store.feature';
 @Component({
   selector: 'mod-state-vehicle-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, InputDirective, CheckboxDirective],
+  imports: [CheckboxDirective, FormsModule, InputDirective, JsonPipe],
   template: `<form
       class="flex flex-col gap-4"
       #form="ngForm"

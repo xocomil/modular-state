@@ -26,8 +26,14 @@
       "@modular-state/vehicle.details": [
         "libs/components/vehicle-details/src/index.ts"
       ],
+      "@modular-state/vehicle.details.state": [
+        "libs/components/vehicle-details/src/lib/state/index.ts"
+      ],
       "@modular-state/vehicle.info": [
         "libs/components/vehicle-info/src/index.ts"
+      ],
+      "@modular-state/vehicle.info.state": [
+        "libs/components/vehicle-info/src/lib/state/index.ts"
       ],
       "@modular-state/wizard": ["libs/wizard/src/index.ts"]
     }

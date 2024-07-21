@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   afterNextRender,
   ChangeDetectionStrategy,
@@ -13,7 +12,7 @@ import { VehicleInfoToken } from './state/vehicle-info.store.feature';
 @Component({
   selector: 'mod-state-vehicle-info',
   standalone: true,
-  imports: [CommonModule, InputDirective, FormsModule],
+  imports: [InputDirective, FormsModule],
   template: `
     <form
       class="flex flex-col gap-4"
@@ -77,6 +76,9 @@ import { VehicleInfoToken } from './state/vehicle-info.store.feature';
       </label>
     </form>
   `,
+  host: {
+    class: 'bg-primary/15 p-2 block',
+  },
   styleUrl: './vehicle-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

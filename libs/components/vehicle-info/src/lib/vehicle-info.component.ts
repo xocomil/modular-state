@@ -77,6 +77,9 @@ import { VehicleInfoToken } from './state/vehicle-info.store.feature';
       </label>
     </form>
   `,
+  host: {
+    class: 'bg-primary/15 p-2 block',
+  },
   styleUrl: './vehicle-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

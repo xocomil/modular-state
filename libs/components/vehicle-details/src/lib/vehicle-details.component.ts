@@ -88,6 +88,9 @@ import { VehicleDetailsToken } from './state/vehicle-details.store.feature';
     </form>
     <pre>{{ log() | json }}</pre> `,
   styleUrl: './vehicle-details.component.css',
+  host: {
+    class: 'bg-accent/15 p-2 block',
+  },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VehicleDetailsComponent {

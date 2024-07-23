@@ -7,22 +7,18 @@ import {
   VehicleInfoToken,
   withVehicleInfo,
 } from '@modular-state/vehicle.info.state';
-import { signalStore, signalStoreFeature, withComputed } from '@ngrx/signals';
+import { signalStore, withComputed } from '@ngrx/signals';
 import { injectLazy } from 'ngxtension/inject-lazy';
 
-function withFullVehicle() {
-  return signalStoreFeature(
-    withVehicleInfo(),
-    withVehicleDetails(),
-    withComputed((store) => ({
-      vehicleDescription: computed(
-        () => `${store.year()} ${store.make()} ${store.model()}`,
-      ),
-    })),
-  );
-}
-
-export const VehicleStore = signalStore(withFullVehicle());
+export const VehicleStore = signalStore(
+  withVehicleInfo(),
+  withVehicleDetails(),
+  withComputed((store) => ({
+    vehicleDescription: computed(
+      () => `${store.year()} ${store.make()} ${store.model()}`,
+    ),
+  })),
+);
 
 export function provideAppState(): Provider[] {
   return [

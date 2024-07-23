@@ -1,0 +1,20 @@
+{
+  "name": "vin-decode-feature",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "vin-decode-feature/src",
+  "prefix": "mod-state",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "vin-decode-feature/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "vin-decode-feature",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "vin-decode-feature/src",
   "prefix": "mod-state",
   "projectType": "library",

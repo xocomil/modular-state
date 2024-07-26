@@ -1,22 +1,18 @@
 {
   "migrations": [
     {
-      "cli": "nx",
-      "version": "19.5.0-beta.1",
-      "requires": {
-        "@angular/core": ">=18.1.0"
-      },
-      "description": "Update the @angular/cli package version to ~18.1.0.",
-      "factory": "./src/migrations/update-19-5-0/update-angular-cli",
-      "package": "@nx/angular",
-      "name": "update-angular-cli-version-18-1-0"
+      "description": "Make the state of all existing SignalStores unprotected",
+      "version": "18.0.0-rc.3",
+      "factory": "./18_0_0-rc_3-protected-state/index",
+      "package": "@ngrx/signals",
+      "name": "18_0_0-rc_3-protected-state"
     },
     {
-      "version": "18.1.0",
-      "description": "Updates calls to afterRender with an explicit phase to the new API",
-      "factory": "./migrations/after-render-phase/bundle",
-      "package": "@angular/core",
-      "name": "migration-after-render-phase"
+      "description": "Replace StateSignal usages with WritableStateSource",
+      "version": "18.0.0-rc.3",
+      "factory": "./18_0_0-rc_3-writablestatesource/index",
+      "package": "@ngrx/signals",
+      "name": "18_0_0-rc_3-writablestatesource"
     }
   ]
 }

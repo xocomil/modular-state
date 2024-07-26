@@ -6,7 +6,9 @@ describe('VinDecoderService', () => {
   let service: VinDecoderService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [VinDecoderService],
+    });
     service = TestBed.inject(VinDecoderService);
   });
 

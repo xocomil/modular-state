@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
   displayName: 'vin-decode-feature',
-  preset: '../jest.preset.js',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../coverage/vin-decode-feature',
+  coverageDirectory: '../../../coverage/vin-decode-feature',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

@@ -15,10 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@modular-state/vin.decode.feature": [
-        "libs/features/vin-decode-feature/src/index.ts"
-      ],
       "@modular-state/combined": ["libs/combined/src/index.ts"],
+      "@modular-state/naive-option": ["libs/naive-option/src/index.ts"],
       "@modular-state/shared-ui": ["libs/shared-ui/src/index.ts"],
       "@modular-state/signal.store.helpers": [
         "libs/components/signal-store-helpers/src/index.ts"
@@ -37,6 +35,9 @@
       ],
       "@modular-state/vehicle.info.state": [
         "libs/components/vehicle-info/src/lib/state/index.ts"
+      ],
+      "@modular-state/vin.decode.feature": [
+        "libs/features/vin-decode-feature/src/index.ts"
       ],
       "@modular-state/wizard": ["libs/wizard/src/index.ts"]
     }

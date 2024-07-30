@@ -6,7 +6,9 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { naiveNone, naiveSome } from '@modular-state/naive-option';
 import { InputDirective } from '@modular-state/shared-ui';
+import { map } from 'rxjs';
 import { VehicleInfoToken } from './state/vehicle-info.store.feature';
 
 @Component({
@@ -88,7 +90,13 @@ export class VehicleInfoComponent {
 
   constructor() {
     afterNextRender(() => {
-      this.store.update(this.form().valueChanges);
+      this.store.update(
+        this.form().valueChanges?.pipe(
+          map((changes) =>
+            changes == null ? naiveNone() : naiveSome(changes),
+          ),
+        ) ?? naiveNone(),
+      );
     });
   }
 }

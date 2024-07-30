@@ -1,4 +1,4 @@
-import { naiveSome } from './naive-option';
+import { naiveIsSome, naiveMatch, naiveNone, naiveSome } from './naive-option';
 
 describe('NaiveOption', () => {
   describe('naiveSome', () => {
@@ -55,8 +55,89 @@ describe('NaiveOption', () => {
   });
 
   describe('naiveNone', () => {
-    it('should create a NaiveNone without an error', () => {
+    it('should create a NaiveNone', () => {
+      const none = naiveNone();
 
+      expect(none).toEqual({
+        type: 'None',
+        bind: expect.any(Function),
+      });
+    });
+
+    describe('bind', () => {
+      it('should return naive none', () => {
+        const none = naiveNone();
+
+        const result = none.bind((value: number) =>
+          naiveSome(value.toString()),
+        );
+
+        expect(result).toEqual(none);
+      });
+
+      it('should chain multiple binds', () => {
+        const none = naiveNone();
+
+        const result = none
+          .bind((value: number) => naiveSome(value * 2))
+          .bind((value: number) => naiveSome(value.toString()))
+          .bind((value: string) => naiveSome([value]));
+
+        expect(result).toEqual(none);
+      });
+
+      it('should handle a naive None mid-chain', () => {
+        const some = naiveSome(42);
+        const none = naiveNone();
+
+        const result = some
+          .bind((value: number) => naiveSome(value * 2))
+          .bind(() => none)
+          .bind((value: number) => naiveSome(value.toString()))
+          .bind((value: string) => naiveSome([value]));
+
+        expect(result).toEqual(none);
+      });
+    });
+  });
+
+  describe('naiveIsSome', () => {
+    it('should return true for a NaiveSome', () => {
+      const some = naiveSome(42);
+
+      expect(naiveIsSome(some)).toBe(true);
+    });
+
+    it('should return false for a NaiveNone', () => {
+      const none = naiveNone();
+
+      expect(naiveIsSome(none)).toBe(false);
+    });
+  });
+
+  describe('naiveMatch', () => {
+    it('should call onSome with the value of a NaiveSome', () => {
+      const some = naiveSome(42);
+
+      const onSome = jest.fn();
+      const onNone = jest.fn();
+
+      naiveMatch(some, onSome, onNone);
+
+      expect(onSome).toHaveBeenCalledWith(42);
+      expect(onNone).not.toHaveBeenCalled();
+    });
+
+    it('should call onNone with a NaiveNone', () => {
+      const none = naiveNone();
+
+      const onSome = jest.fn();
+      const onNone = jest.fn();
+
+      naiveMatch(none, onSome, onNone);
+
+      expect(onSome).not.toHaveBeenCalled();
+      expect(onNone).toHaveBeenCalled();
     });
   });
 });

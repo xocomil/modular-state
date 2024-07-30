@@ -1,4 +1,4 @@
-import { naiveIsSome, naiveMatch, naiveNone, naiveSome } from './naive-option';
+import { defaultIfNone, naiveIsSome, naiveMatch, naiveNone, naiveSome } from './naive-option';
 
 describe('NaiveOption', () => {
   describe('naiveSome', () => {
@@ -138,6 +138,24 @@ describe('NaiveOption', () => {
 
       expect(onSome).not.toHaveBeenCalled();
       expect(onNone).toHaveBeenCalled();
+    });
+  });
+
+  describe('defaultIfNone', () => {
+    it('should return the value of a NaiveSome', () => {
+      const some = naiveSome(42);
+
+      const result = defaultIfNone(some, 0);
+
+      expect(result).toBe(42);
+    });
+
+    it('should return the default value for a NaiveNone', () => {
+      const none = naiveNone();
+
+      const result = defaultIfNone(none, 0);
+
+      expect(result).toBe(0);
     });
   });
 });

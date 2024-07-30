@@ -15,7 +15,6 @@ function naveSomeBind<T, U>(
 
 export type NaiveNone = {
   readonly type: 'None';
-  readonly error: NaiveOption<string>;
   bind<U>(_fn: naiveBindFn<never, U>): NaiveOption<U>;
 };
 
@@ -25,10 +24,9 @@ export function naiveSome<T>(value: T): NaiveSome<T> {
   return { type: 'Some', value, bind: naveSomeBind };
 }
 
-export function naiveNone(error: NaiveOption<string> = naiveNone()): NaiveNone {
+export function naiveNone(): NaiveNone {
   return {
     type: 'None',
-    error,
     bind: function (this: NaiveNone) {
       return this;
     },
@@ -37,4 +35,20 @@ export function naiveNone(error: NaiveOption<string> = naiveNone()): NaiveNone {
 
 export function naiveIsSome<T>(option: NaiveOption<T>): option is NaiveSome<T> {
   return option.type === 'Some';
+}
+
+export function naiveMatch<T>(
+  option: NaiveOption<T>,
+  onSome: (value: T) => void,
+  onNone: () => void,
+): void {
+  if (naiveIsSome(option)) {
+    onSome(option.value);
+  } else {
+    onNone();
+  }
+}
+
+export function defaultIfNone<T>(option: NaiveOption<T>, defaultValue: T): T {
+  return naiveIsSome(option) ? option.value : defaultValue;
 }

@@ -8,8 +8,10 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { naiveNone, naiveSome } from '@modular-state/naive-option';
 import { CheckboxDirective, InputDirective } from '@modular-state/shared-ui';
 import { getState } from '@ngrx/signals';
+import { map } from 'rxjs';
 import { VehicleDetailsToken } from './state/vehicle-details.store.feature';
 
 @Component({
@@ -100,7 +102,13 @@ export class VehicleDetailsComponent {
 
   constructor() {
     afterNextRender(() => {
-      this.store.update(this.form().valueChanges);
+      this.store.update(
+        this.form().valueChanges?.pipe(
+          map((changes) =>
+            changes == null ? naiveNone() : naiveSome(changes),
+          ),
+        ) ?? naiveNone(),
+      );
     });
   }
 }

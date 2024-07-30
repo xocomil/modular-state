@@ -1,1 +1,1 @@
-export * from './lib/naive-option/naive-option.component';
+export * from './lib/naive-option/naive-option';

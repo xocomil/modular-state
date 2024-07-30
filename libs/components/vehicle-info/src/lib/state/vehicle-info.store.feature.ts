@@ -1,4 +1,5 @@
 import { computed, inject, InjectionToken, Signal } from '@angular/core';
+import { NaiveOption } from '@modular-state/naive-option';
 import {
   RxMethod,
   SignalStoreProps,
@@ -22,14 +23,14 @@ export function withVehicleInfo() {
     })),
 
     withMethods((store) => ({
-      update: rxMethod<Partial<Vehicle> | null>((update$) =>
+      update: rxMethod<NaiveOption<Partial<Vehicle>>>((update$) =>
         update$.pipe(
           tap((updates) => {
-            if (updates == null) {
-              return;
-            }
+            updates.bind((updateValues) => {
+              patchState(store, () => updateValues);
 
-            patchState(store, () => updates);
+              return updates;
+            });
           }),
         ),
       ),
@@ -38,7 +39,7 @@ export function withVehicleInfo() {
 }
 
 export type VehicleInfoStore = SignalStoreProps<Vehicle> & {
-  update: RxMethod<Partial<Vehicle> | null>;
+  update: RxMethod<NaiveOption<Partial<Vehicle>>>;
   vinLast6: Signal<string>;
 };
 

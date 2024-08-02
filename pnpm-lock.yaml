@@ -156,6 +156,9 @@ importers:
       eslint-plugin-playwright:
         specifier: ^1.6.2
         version: 1.6.2(eslint@8.57.0)
+      eslint-plugin-tree-shaking:
+        specifier: ^1.12.2
+        version: 1.12.2
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.0.0)(ts-node@10.9.2(@swc/core@1.7.3(@swc/helpers@0.5.12))(@types/node@22.0.0)(typescript@5.5.4))
@@ -3487,6 +3490,10 @@ packages:
     peerDependenciesMeta:
       eslint-plugin-jest:
         optional: true
+
+  eslint-plugin-tree-shaking@1.12.2:
+    resolution: {integrity: sha512-D3MBKjH9EaGZg1gxqezGmjCeWzHs/O0jRFajpuXLYKeOCh3ycgoXeZ1ceKaD2QnK+v18ly+XjNDUCgss4vKbWg==}
+    engines: {node: '>=6.0.0'}
 
   eslint-scope@5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
@@ -11030,6 +11037,8 @@ snapshots:
     dependencies:
       eslint: 8.57.0
       globals: 13.24.0
+
+  eslint-plugin-tree-shaking@1.12.2: {}
 
   eslint-scope@5.1.1:
     dependencies:

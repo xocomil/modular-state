@@ -14,13 +14,13 @@ export class VinDecoderService {
   readonly #httpClient = inject(HttpClient);
 
   decodeVin(vin: string) {
-    //decodevin/1GCUYDED7NZ123456?format=json
+    //https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/1GCUYDED9NZ123456?format=json
     const decodeUrl = Location.joinWithSlash(this.#baseUrl, `decodevin/${vin}`);
 
     return this.#httpClient.get(decodeUrl, { params: { format: 'json' } });
   }
 
   decodeEquipment(vin: string) {
-    //https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/1GCUYDED7NZ123456?format=json
+    //https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/1GCUYDED9NZ123456?format=json
   }
 }

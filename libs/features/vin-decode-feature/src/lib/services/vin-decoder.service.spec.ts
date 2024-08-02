@@ -1,3 +1,5 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { VinDecoderService } from './vin-decoder.service';
@@ -7,7 +9,11 @@ describe('VinDecoderService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [VinDecoderService],
+      providers: [
+        VinDecoderService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
     });
     service = TestBed.inject(VinDecoderService);
   });

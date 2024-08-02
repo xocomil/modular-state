@@ -1,6 +1,12 @@
 import { computed } from '@angular/core';
-import { defaultIfNone } from '@modular-state/naive-option';
 import {
+  defaultIfNone,
+  naiveNone,
+  naiveSome,
+} from '@modular-state/naive-option';
+import {
+  PartialStateUpdater,
+  patchState,
   signalStoreFeature,
   type,
   withComputed,
@@ -9,7 +15,7 @@ import {
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tap } from 'rxjs';
-import { emptyVinDecodeState } from '../state/vin-decode.model';
+import { emptyVinDecodeState, VinDecodeState } from '../state/vin-decode.model';
 
 export function withVinDecoder() {
   return signalStoreFeature(
@@ -25,11 +31,25 @@ export function withVinDecoder() {
     withMethods((state) => ({
       decodeVin: rxMethod<string>(
         tap((vin) => {
+          patchState(state, resetError());
+
           if (vin.length !== 17) {
-            throw new Error('VIN must be 17 characters long');
+            patchState(state, setError('VIN must be 17 characters to decode.'));
           }
         }),
       ),
     })),
   );
+}
+
+export function setError(
+  errorMessage: string,
+): PartialStateUpdater<VinDecodeState> {
+  return () => ({
+    _errorMessage: naiveSome(errorMessage),
+  });
+}
+
+export function resetError(): PartialStateUpdater<VinDecodeState> {
+  return () => ({ _errorMessage: naiveNone() });
 }

@@ -1,7 +1,7 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nx"],
+  "plugins": ["@nx", "@ngrx", "tree-shaking"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -15,6 +15,24 @@
               {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ],
+        "tree-shaking/no-side-effects-in-initialization": [
+          "error",
+          {
+            "noSideEffectsWhenCalled": [
+              { "function": "InjectionToken" },
+              { "function": "bootstrapApplication" },
+              {
+                "module": "@ngrx/signals",
+                "functions": [
+                  "signalStore",
+                  "withComputed",
+                  "withMethods",
+                  "withState"
+                ]
               }
             ]
           }
@@ -37,6 +55,12 @@
         "jest": true
       },
       "rules": {}
+    },
+    {
+      "files": ["test-setup.ts", "*.spec.ts", "tailwind.config.js"],
+      "rules": {
+        "tree-shaking/no-side-effects-in-initialization": "off"
+      }
     },
     {
       "files": ["*.ts"],

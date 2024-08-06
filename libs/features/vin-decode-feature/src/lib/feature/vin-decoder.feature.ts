@@ -17,9 +17,11 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tap } from 'rxjs';
 import { emptyVinDecodeState, VinDecodeState } from '../state/vin-decode.model';
 
-export function withVinDecoder() {
+export function withVinDecoder<_>() {
   return signalStoreFeature(
-    { state: type<{ vin: string }>() },
+    {
+      state: type<{ vin: string; year: number; make: string; model: string }>(),
+    },
     withState(() => emptyVinDecodeState()),
     withComputed((store) => ({
       errorMessage: computed(() => {

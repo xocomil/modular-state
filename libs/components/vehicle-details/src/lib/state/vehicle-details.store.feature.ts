@@ -15,7 +15,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tap } from 'rxjs';
 import { VEHICLE_DETAILS_STATE, VehicleDetails } from './vehicle-details.model';
 
-export function withVehicleDetails() {
+export function withVehicleDetails<_>() {
   return signalStoreFeature(
     { state: type<{ vin: string }>() },
     withState(() => inject(VEHICLE_DETAILS_STATE)),

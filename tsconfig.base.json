@@ -37,7 +37,7 @@
         "libs/components/vehicle-info/src/lib/state/index.ts"
       ],
       "@modular-state/vin.decode.feature": [
-        "libs/features/vin-decode-feature/src/index.ts"
+        "libs/features/vin-decode-feature/src/lib/feature/index.ts"
       ],
       "@modular-state/wizard": ["libs/wizard/src/index.ts"]
     }

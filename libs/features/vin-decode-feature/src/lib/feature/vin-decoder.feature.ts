@@ -1,9 +1,10 @@
-import { computed } from '@angular/core';
+import { computed, InjectionToken } from '@angular/core';
 import {
   defaultIfNone,
   naiveNone,
   naiveSome,
 } from '@modular-state/naive-option';
+import { RxMethod } from '@modular-state/signal.store.helpers.types';
 import {
   PartialStateUpdater,
   patchState,
@@ -31,13 +32,20 @@ export function withVinDecoder<_>() {
       }),
     })),
     withMethods((state) => ({
-      decodeVin: rxMethod<string>(
-        tap((vin) => {
+      // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+      decodeVin: rxMethod<void>(
+        tap(() => {
+          console.log('decodeVin() called', 1234);
+
           patchState(state, resetError());
+
+          const vin = state.vin();
 
           if (vin.length !== 17) {
             patchState(state, setError('VIN must be 17 characters to decode.'));
           }
+
+          patchState(state, { model: `You tried to decode ${vin}` });
         }),
       ),
     })),
@@ -55,3 +63,11 @@ export function setError(
 export function resetError(): PartialStateUpdater<VinDecodeState> {
   return () => ({ _errorMessage: naiveNone() });
 }
+
+export type VinDecoderFeature = {
+  decodeVin: RxMethod<void>;
+};
+
+export const VinDecoderFeature = new InjectionToken<VinDecoderFeature>(
+  'VinDecoderFeature',
+);

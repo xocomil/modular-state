@@ -7,7 +7,10 @@ import {
   VehicleInfoToken,
   withVehicleInfo,
 } from '@modular-state/vehicle.info.state';
-import { withVinDecoder } from '@modular-state/vin.decode.feature';
+import {
+  VinDecoderFeature,
+  withVinDecoder,
+} from '@modular-state/vin.decode.feature';
 import { signalStore, withComputed } from '@ngrx/signals';
 
 export const VehicleStore = signalStore(
@@ -31,6 +34,11 @@ export function provideAppState(): Provider[] {
     },
     {
       provide: VehicleInfoToken,
+      useExisting: VehicleStore,
+      deps: [VehicleStore],
+    },
+    {
+      provide: VinDecoderFeature,
       useExisting: VehicleStore,
       deps: [VehicleStore],
     },

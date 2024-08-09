@@ -8,29 +8,33 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { naiveNone, naiveSome } from '@modular-state/naive-option';
 import { InputDirective } from '@modular-state/shared-ui';
+import { VinDecoderDirective } from '@modular-state/vin.decoder';
 import { map } from 'rxjs';
 import { VehicleInfoToken } from './state/vehicle-info.store.feature';
 
 @Component({
   selector: 'mod-state-vehicle-info',
   standalone: true,
-  imports: [InputDirective, FormsModule],
+  imports: [InputDirective, FormsModule, VinDecoderDirective],
   template: `
     <form
       class="flex flex-col gap-4"
       #form="ngForm"
       [ngFormOptions]="{ updateOn: 'blur' }"
     >
-      <label modStateInput>
-        VIN (Last 6: {{ store.vinLast6() }})
-        <input
-          [ngModel]="store.vin()"
-          [ngModelOptions]="{ updateOn: 'blur' }"
-          type="text"
-          placeholder="VIN"
-          name="vin"
-        />
-      </label>
+      <div class="join w-full">
+        <label class="grow" modStateInput>
+          VIN (Last 6: {{ store.vinLast6() }})
+          <input
+            [ngModel]="store.vin()"
+            [ngModelOptions]="{ updateOn: 'blur' }"
+            type="text"
+            placeholder="VIN"
+            name="vin"
+          />
+        </label>
+        <button modStateVinDecoder>Decode VIN</button>
+      </div>
       <label modStateInput>
         Year
         <input

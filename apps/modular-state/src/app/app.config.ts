@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
   // eslint-disable-next-line tree-shaking/no-side-effects-in-initialization
@@ -11,5 +12,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
     provideRouter(appRoutes),
+    provideHttpClient(),
   ],
 };

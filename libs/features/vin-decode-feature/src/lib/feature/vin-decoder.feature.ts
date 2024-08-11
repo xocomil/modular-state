@@ -1,10 +1,11 @@
-import { computed, InjectionToken } from '@angular/core';
+import { computed, inject, InjectionToken, Injector } from '@angular/core';
 import {
   defaultIfNone,
   naiveNone,
   naiveSome,
 } from '@modular-state/naive-option';
 import { RxMethod } from '@modular-state/signal.store.helpers.types';
+import { tapResponse } from '@ngrx/operators';
 import {
   PartialStateUpdater,
   patchState,
@@ -15,8 +16,12 @@ import {
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { tap } from 'rxjs';
+import { injectLazy } from 'ngxtension/inject-lazy';
+import { filter, of, pipe, switchMap } from 'rxjs';
 import { emptyVinDecodeState, VinDecodeState } from '../state/vin-decode.model';
+
+const ImportVinDecoderService = () =>
+  import('../services/vin-decoder.service').then((m) => m.VinDecoderService);
 
 export function withVinDecoder<_>() {
   return signalStoreFeature(
@@ -31,24 +36,48 @@ export function withVinDecoder<_>() {
         return defaultIfNone(error, '');
       }),
     })),
-    withMethods((state) => ({
-      // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-      decodeVin: rxMethod<void>(
-        tap(() => {
-          console.log('decodeVin() called', 1234);
+    withMethods((state) => {
+      const injector = inject(Injector);
 
-          patchState(state, resetError());
+      return {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        decodeVin: rxMethod<void>(
+          pipe(
+            switchMap(() => {
+              console.log('decodeVin() called', 1234);
 
-          const vin = state.vin();
+              patchState(state, resetError());
 
-          if (vin.length !== 17) {
-            patchState(state, setError('VIN must be 17 characters to decode.'));
-          }
+              const vin = state.vin();
 
-          patchState(state, { model: `You tried to decode ${vin}` });
-        }),
-      ),
-    })),
+              if (vin.length !== 17) {
+                patchState(
+                  state,
+                  setError('VIN must be 17 characters to decode.'),
+                );
+
+                of();
+              }
+
+              return injectLazy(ImportVinDecoderService, injector).pipe(
+                switchMap((service) => {
+                  return service.decodeVin(vin);
+                }),
+              );
+            }),
+            filter((response) => response !== null),
+            tapResponse({
+              next: (response) => {
+                console.log('response', response);
+              },
+              error: (error) => {
+                console.error('error', error);
+              },
+            }),
+          ),
+        ),
+      };
+    }),
   );
 }
 

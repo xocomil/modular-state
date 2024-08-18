@@ -1,5 +1,4 @@
-import { Static, Type } from '@sinclair/typebox';
-import { Value } from '@sinclair/typebox/value';
+import { array, is, nullable, number, object, string } from 'superstruct';
 
 export type ServiceResponse = {
   Count: number;
@@ -8,17 +7,14 @@ export type ServiceResponse = {
   SearchCriteria: string;
 };
 
-const vinDecoderResponse = Type.Array(
-  Type.Object({
-    Value: Type.Union([Type.String(), Type.Null()]),
-    ValueId: Type.Union([Type.String(), Type.Null()]),
-    Variable: Type.String(),
-    VariableId: Type.Integer(),
+const vinDecoderResponse = array(
+  object({
+    Value: nullable(string()),
+    ValueId: nullable(string()),
+    Variable: string(),
+    VariableId: number(),
   }),
 );
 
-type VinDecoderResponse = Static<typeof vinDecoderResponse>;
-
-export const vinDecoderResponseParser = (
-  response: unknown,
-): VinDecoderResponse => Value.Parse(vinDecoderResponse, response);
+export const vinDecoderResponseParser = (response: unknown[]) =>
+  is(response, vinDecoderResponse) ? response : [];

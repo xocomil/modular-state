@@ -16,9 +16,11 @@
     "@ngrx/operators": "18.0.2",
     "@ngrx/signals": "18.0.2",
     "@nx/angular": "19.6.0",
+    "@sinclair/typebox": "^0.33.7",
     "mutative": "^1.0.8",
     "ngxtension": "^4.0.0",
     "rxjs": "~7.8.1",
+    "superstruct": "^2.0.2",
     "tslib": "^2.6.3",
     "zone.js": "~0.14.10"
   },

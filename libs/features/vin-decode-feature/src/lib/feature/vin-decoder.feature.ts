@@ -26,7 +26,13 @@ const ImportVinDecoderService = () =>
 export function withVinDecoder<_>() {
   return signalStoreFeature(
     {
-      state: type<{ vin: string; year: number; make: string; model: string }>(),
+      state: type<{
+        vin: string;
+        year: number;
+        make: string;
+        model: string;
+        trim: string;
+      }>(),
     },
     withState(() => emptyVinDecodeState()),
     withComputed((store) => ({
@@ -44,8 +50,6 @@ export function withVinDecoder<_>() {
         decodeVin: rxMethod<void>(
           pipe(
             switchMap(() => {
-              console.log('decodeVin() called', 1234);
-
               patchState(state, resetError());
 
               const vin = state.vin();
@@ -56,7 +60,7 @@ export function withVinDecoder<_>() {
                   setError('VIN must be 17 characters to decode.'),
                 );
 
-                of();
+                return of();
               }
 
               return injectLazy(ImportVinDecoderService, injector).pipe(
@@ -69,6 +73,13 @@ export function withVinDecoder<_>() {
             tapResponse({
               next: (response) => {
                 console.log('response', response);
+
+                patchState(state, {
+                  year: response.year,
+                  make: response.make,
+                  model: response.model,
+                  trim: response.trimLevel,
+                });
               },
               error: (error) => {
                 console.error('error', error);

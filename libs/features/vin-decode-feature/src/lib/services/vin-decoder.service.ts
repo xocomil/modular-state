@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, tap } from 'rxjs';
+import { FilterNullishAndEmpty } from '../models/filter-nullish-and-empty';
+import { convertVinDecoderResponseToVehicleResponse } from '../models/vehicle-response';
 import {
   ServiceResponse,
   vinDecoderResponseParser,
@@ -33,6 +35,8 @@ export class VinDecoderService {
             (item) => item.Value !== null && item.Value !== '',
           ),
         ),
+        tap((response) => console.log('response after filter', response)),
+        map(convertVinDecoderResponseToVehicleResponse),
       );
   }
 
@@ -40,10 +44,6 @@ export class VinDecoderService {
     //https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/1GCUYDED9NZ123456?format=json
   }
 }
-
-type FilterNullishAndEmpty<T> = T extends object
-  ? { [key in keyof T]-?: Exclude<T[key], null> }
-  : T;
 
 function filterNullishAndEmpty<T extends object>(
   items: T[],

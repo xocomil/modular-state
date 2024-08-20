@@ -1,4 +1,12 @@
-import { array, is, nullable, number, object, string } from 'superstruct';
+import {
+  array,
+  Infer,
+  is,
+  nullable,
+  number,
+  object,
+  string,
+} from 'superstruct';
 
 export type ServiceResponse = {
   Count: number;
@@ -15,6 +23,8 @@ const vinDecoderResponse = array(
     VariableId: number(),
   }),
 );
+
+export type VinDecoderResponse = Infer<typeof vinDecoderResponse>;
 
 export const vinDecoderResponseParser = (response: unknown[]) =>
   is(response, vinDecoderResponse) ? response : [];

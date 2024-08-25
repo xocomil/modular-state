@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { VehicleDetailsComponent } from '@modular-state/vehicle.details';
 import { VehicleInfoComponent } from '@modular-state/vehicle.info';
@@ -9,7 +8,7 @@ import { WizardStore } from './state/wizard.store';
 @Component({
   selector: 'mod-state-wizard',
   standalone: true,
-  imports: [JsonPipe, VehicleDetailsComponent, VehicleInfoComponent],
+  imports: [VehicleDetailsComponent, VehicleInfoComponent],
   template: `<div>
       @switch (store.currentStep()) {
         @case ('info') {
@@ -18,17 +17,12 @@ import { WizardStore } from './state/wizard.store';
           }
         }
         @case ('details') {
-          <div>
-            @defer {
-              <mod-state-vehicle-details />
-            }
-          </div>
+          @defer {
+            <mod-state-vehicle-details />
+          }
         }
         @case ('confirmation') {
-          <div>
-            <h1>Confirmation</h1>
-            <pre>{{ getState(vehicleStore) | json }}</pre>
-          </div>
+          <h3>Confirmation</h3>
         }
       }
     </div>

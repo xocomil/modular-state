@@ -22,7 +22,12 @@
           }
         ],
         "styles": ["apps/modular-state/src/styles.css"],
-        "scripts": []
+        "scripts": [],
+        "server": "apps/modular-state/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/modular-state/server.ts"
+        }
       },
       "configurations": {
         "production": {

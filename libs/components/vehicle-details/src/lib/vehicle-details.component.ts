@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import {
   afterNextRender,
   ChangeDetectionStrategy,
@@ -17,78 +16,77 @@ import { VehicleDetailsToken } from './state/vehicle-details.store.feature';
 @Component({
   selector: 'mod-state-vehicle-details',
   standalone: true,
-  imports: [CheckboxDirective, FormsModule, InputDirective, JsonPipe],
+  imports: [CheckboxDirective, FormsModule, InputDirective],
   template: `<form
-      class="flex flex-col gap-4"
-      #form="ngForm"
-      [ngFormOptions]="{ updateOn: 'blur' }"
-    >
-      <label modStateInput>
-        Color
-        <input
-          [ngModel]="store.color()"
-          type="text"
-          name="color"
-          placeholder="Vehicle Color"
-        />
-      </label>
-      <label modStateInput>
-        Engine
-        <input
-          [ngModel]="store.engine()"
-          type="text"
-          name="engine"
-          placeholder="Engine"
-        />
-      </label>
-      <label modStateInput>
-        Fuel Type
-        <input
-          [ngModel]="store.fuelType()"
-          type="text"
-          name="fuelType"
-          placeholder="Fuel Type"
-        />
-      </label>
-      <label modStateCheckbox>
-        Tinted Windows
-        <input
-          [ngModel]="store.tintedWindows()"
-          type="checkbox"
-          name="tintedWindows"
-        />
-      </label>
-      <label modStateCheckbox>
-        Sunroof
-        <input
-          [ngModel]="store.sunroof()"
-          [ngModelOptions]="{ updateOn: 'change' }"
-          type="checkbox"
-          name="sunroof"
-        />
-      </label>
-      <label modStateCheckbox>
-        Heated Seats
-        <input
-          [ngModel]="store.heatedSeats()"
-          [ngModelOptions]="{ updateOn: 'change' }"
-          type="checkbox"
-          name="heatedSeats"
-        />
-      </label>
-      <label modStateCheckbox>
-        Navigation
-        <input
-          [ngModel]="store.navigation()"
-          [ngModelOptions]="{ updateOn: 'change' }"
-          type="checkbox"
-          name="navigation"
-        />
-      </label>
-      <label>Vin: </label><span>{{ store.vin() }}</span
-      ><br />
-    </form>
-    <pre>{{ log() | json }}</pre> `,
+    class="flex flex-col gap-4"
+    #form="ngForm"
+    [ngFormOptions]="{ updateOn: 'blur' }"
+  >
+    <label modStateInput>
+      Color
+      <input
+        [ngModel]="store.color()"
+        type="text"
+        name="color"
+        placeholder="Vehicle Color"
+      />
+    </label>
+    <label modStateInput>
+      Engine
+      <input
+        [ngModel]="store.engine()"
+        type="text"
+        name="engine"
+        placeholder="Engine"
+      />
+    </label>
+    <label modStateInput>
+      Fuel Type
+      <input
+        [ngModel]="store.fuelType()"
+        type="text"
+        name="fuelType"
+        placeholder="Fuel Type"
+      />
+    </label>
+    <label modStateCheckbox>
+      Tinted Windows
+      <input
+        [ngModel]="store.tintedWindows()"
+        type="checkbox"
+        name="tintedWindows"
+      />
+    </label>
+    <label modStateCheckbox>
+      Sunroof
+      <input
+        [ngModel]="store.sunroof()"
+        [ngModelOptions]="{ updateOn: 'change' }"
+        type="checkbox"
+        name="sunroof"
+      />
+    </label>
+    <label modStateCheckbox>
+      Heated Seats
+      <input
+        [ngModel]="store.heatedSeats()"
+        [ngModelOptions]="{ updateOn: 'change' }"
+        type="checkbox"
+        name="heatedSeats"
+      />
+    </label>
+    <label modStateCheckbox>
+      Navigation
+      <input
+        [ngModel]="store.navigation()"
+        [ngModelOptions]="{ updateOn: 'change' }"
+        type="checkbox"
+        name="navigation"
+      />
+    </label>
+    <label>Vin: </label><span>{{ store.vin() }}</span
+    ><br />
+  </form> `,
   styleUrl: './vehicle-details.component.css',
   host: {
     class: 'bg-accent/15 p-2 block',

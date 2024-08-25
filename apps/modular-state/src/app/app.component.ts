@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { getState } from '@ngrx/signals';
@@ -6,7 +5,7 @@ import { provideAppState, VehicleStore } from './state/store';
 
 @Component({
   standalone: true,
-  imports: [JsonPipe, RouterLink, RouterOutlet],
+  imports: [RouterLink, RouterOutlet],
   selector: 'app-root',
   template: `
     <div class="left-nav">
@@ -15,9 +14,6 @@ import { provideAppState, VehicleStore } from './state/store';
     </div>
     <div class="vehicle-description">
       <h1 class="text-primary">{{ store.vehicleDescription() }}</h1>
-    </div>
-    <div class="details">
-      <pre class="mockup-code">{{ allVehicleProps() | json }}</pre>
     </div>
     <div class="content">
       <router-outlet></router-outlet>

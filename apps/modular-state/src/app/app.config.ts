@@ -1,15 +1,15 @@
 import { provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
-  // eslint-disable-next-line tree-shaking/no-side-effects-in-initialization
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
-// eslint-disable-next-line tree-shaking/no-side-effects-in-initialization
+import { provideClientHydration } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideClientHydration(),
     provideExperimentalZonelessChangeDetection(),
     provideRouter(appRoutes),
     provideHttpClient(),
